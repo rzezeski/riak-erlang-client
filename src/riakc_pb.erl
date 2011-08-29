@@ -312,6 +312,18 @@ erlify_bool(0) ->
 erlify_bool(1) ->
     true.
 
+pbify_range(Pairs) ->
+    lists:map(fun pbify_range_pair/1, Pairs).
+
+pbify_range_pair({K, Obj}) ->
+    #rpbrangepair{key=K, obj=Obj}.
+
+erlify_range(Pairs) ->
+    lists:map(fun erlify_range_pair/1, Pairs).
+
+erlify_range_pair(#rpbrangepair{key=K, obj=Obj}) ->
+    {K, Obj}.
+
 %% Make sure an atom/string/binary is definitely a binary
 to_binary(A) when is_atom(A) ->
     atom_to_binary(A, latin1);
